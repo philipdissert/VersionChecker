@@ -16,6 +16,8 @@ PRIVATE_TOKEN_GITLAB = ''
 PRIVATE_TOKEN_GITHUB = ''
 PRIVATE_TOKEN_GITLABCOM = ''
 
+LOCAL_GITLAB_URL = 'http://localhost:8000'
+
 headerGitLab = {
         'PRIVATE-TOKEN': PRIVATE_TOKEN_GITLAB
     }
@@ -46,17 +48,17 @@ def isDockerLatest():
         return False
 
 def isGitlabLatest():
-    r = requests.get('http://localhost:8000/api/v4/version', headers=headerGitLab)
+    r = requests.get(LOCAL_GITLAB_URL+'/api/v4/version', headers=headerGitLab)
     gitlabLocalVersionString = json.loads(r.text)["version"]
 
     requestServer = json.loads(requests.get('https://api.github.com/repos/gitlabhq/gitlabhq/tags').text)    
     return isVersionEqual(gitlabLocalVersionString, requestServer, isJson=True)
 
 def isGitlabRunnerLatest():
-    allRunners = json.loads(requests.get('http://localhost:8000/api/v4/runners', headers=headerGitLab).text)
+    allRunners = json.loads(requests.get(LOCAL_GITLAB_URL+'/api/v4/runners', headers=headerGitLab).text)
     gl = gitlab.Gitlab('http://gitlab.com', private_token=PRIVATE_TOKEN_GITLABCOM)
     for runnerFromAll in allRunners:
-        runner = json.loads(requests.get('http://localhost:8000/api/v4/runners/'+str(runnerFromAll["id"]), headers=headerGitLab).text)
+        runner = json.loads(requests.get(LOCAL_GITLAB_URL+'/api/v4/runners/'+str(runnerFromAll["id"]), headers=headerGitLab).text)
         return isVersionEqual(runner["version"], gl.projects.get(250833).releases.list(), isJson=False)
 
 #print(isGitlabLatest())
@@ -82,13 +84,4 @@ if __name__ == '__main__':
         print("asgssag")
 
         time.sleep(60*10)
-    
-    
-
-
-
-
-
-
-
-
+        
