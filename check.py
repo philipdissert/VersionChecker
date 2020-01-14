@@ -17,6 +17,7 @@ PRIVATE_TOKEN_GITHUB = ''
 PRIVATE_TOKEN_GITLABCOM = ''
 
 LOCAL_GITLAB_URL = 'http://localhost:8000'
+SERVER_PORT = 9999
 
 headerGitLab = {
         'PRIVATE-TOKEN': PRIVATE_TOKEN_GITLAB
@@ -69,7 +70,7 @@ def isGitlabRunnerLatest():
 
 if __name__ == '__main__':
     # Start up the server to expose the metrics.
-    start_http_server(9999)
+    start_http_server(SERVER_PORT)
     # Generate some requests.
     while True:
         g = Gauge("is_gitlab_latest", "0 if gitlab needs to be updated else 1")
@@ -81,7 +82,4 @@ if __name__ == '__main__':
         g = Gauge("is_gitlab_runner_latest", "0 if gitlab-runner needs to be updated else 1")
         g.set(isGitlabRunnerLatest())
 
-        print("asgssag")
-
         time.sleep(60*10)
-        
