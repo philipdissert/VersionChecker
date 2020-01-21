@@ -12,3 +12,10 @@ LOCAL_GITLAB_URL
 If you start this it will show metrics on port 9999 on your localhost, to change this you can change the SERVER_PORT variable.
 
 You have to start this on the machine where the gitlab-instance runs.
+
+Install pip packages:
+configparse
+prometheus_client
+PyGithub
+python-gitlab
+docker
