@@ -9,9 +9,6 @@ import requests
 import gitlab
 import configparser
 
-class ConfigParserException(Exception):
-    pass
-
 client = docker.from_env()
 
 PRIVATE_TOKEN_GITLAB = ''
