@@ -1,0 +1,1 @@
+A small Python tool which check if the local running versions of GitLab, the GitLab Runner and Docker are the latest and prints it to an Prometheus client.
